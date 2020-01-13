@@ -44,6 +44,6 @@ Enter Telegram Bottoken and MySQL Passwort, if you want to use Twitter you need 
 }
 ```
 
-Then run `npm setup`
+Then run `node setup`
 
 Then you can start the bot with `npm start`
