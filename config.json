@@ -1,0 +1,11 @@
+{
+	"botname":"Buchhandlungs_bot",
+	"botversion":"1.0",
+	"LogChat":"-1001211106939",
+	"isSuperAdmin":"206921999",
+	"dbreaduserhost":"example.com",
+	"dbreaduser":"root",
+	"database":"Buchhandlung",
+	"WTdelmsgshort":"5400",
+	"WTdelmsglong":"15400"
+}
