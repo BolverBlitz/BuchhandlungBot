@@ -8,21 +8,7 @@ Enter Telegram Bottoken and MySQL Passwort, if you want to use Twitter you need 
 ```json
 {
     "dbreaduserpwd":"MySQL Passwort",
-    "bottoken":"Telegram Bot Token",
-    "twitter": [
-        {
-            "consumer_key": "Get from Twitter"
-        },
-        {
-            "consumer_secret": "Get from Twitter"
-        },
-        {
-            "access_token_key": "Get from Twitter needs read/write permissions"
-        },
-        {
-            "access_token_secret": "Get from Twitter needs read/write permissions"
-        }
-    ]
+    "bottoken":"Telegram Bot Token"
 }
 ```
 
