@@ -42,7 +42,7 @@ let versionfix = version.replace(/[.]/g,'_',);
 var changelog_latest = changelog[versionfix];
 var LastConnectionLost = new Date();
 
-config.isSuperAdmin = '447438490' //Thekla Override
+//config.isSuperAdmin = '447438490' //Thekla Override
 
 bot.start(); //Telegram bot start
 
@@ -101,10 +101,6 @@ bot.on(/^\/update$/i, (msg) => {
 					console.log("Gleich")
 				}else{
 					var Unterschied = (ShopsScraper.length-1) - AnzahlAlt;
-					let Output = "@Wintermohn hat gerade Ihrer Buchhandlungenliste um " + Unterschied + " weitere Buchhandlungen erweiter!\n\nNun sind insgesamt " + [ShopsScraper.length-1] + " Buchhandlungen in der Liste\nIn " + ShopsScraper[ShopsScraper.length-1].OrtFehler + " fehlt ein Ort. \n@BolverBlitz"
-					Twitter.Tweet(Output).then(function(Tweet){
-						msg.reply.text("Da neue Buchhandlungen hinzugefügt wurden, wurde ein [Tweet](" + Tweet.url + ") erstellt!", { parseMode: 'markdown', webPreview: true })
-					})
 				}
 			connection.release();
 			});
