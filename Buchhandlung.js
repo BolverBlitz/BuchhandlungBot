@@ -7,7 +7,6 @@ var changelog = require('./changelog');
 const f = require('./src/Funktions');
 const OS = require('./src/Hardware');
 const Web = require('./src/ShopsScraper');
-const Twitter = require('./src/Twitter');
 
 //Include simple modules
 var fs = require("fs");
@@ -128,7 +127,7 @@ bot.on(/^\/s( .+)*$/i, (msg, props) => {
 						let name = rows[i].Name
 						let ort = rows[i].Ort
 						let url = rows[i].URL
-						console.log(url)
+						//console.log(url)
 						Nachricht = Nachricht + "" + name + "\n- Ort: " + f.capitalizeFirstLetter(ort) + "\n- Link: [" + urlX.parse(url).hostname + "](" + url + ")\n\n"
 					}
 				}
@@ -182,4 +181,52 @@ bot.on(['/start', '/help'], (msg) => {
 					connection.release();
 	        });
 		});
+});
+
+/*----------------------Inline Handler--------------------------*/
+bot.on('inlineQuery', msg => {
+	let query = msg.query.toLowerCase();
+	let queryarr = query.split('');
+    const answers = bot.answerList(msg.id, {cacheTime: 1});
+    if(queryarr.length === 0){
+		answers.addArticle({
+			id: 'Not found',
+			title: 'Bitte gib den Ort an, an dem du eine Buchhandlung suchen möchtest!',
+			description: query,
+			message_text: ("Bitte gebe einen Ort an")
+		});
+		return bot.answerQuery(answers);
+	}else{
+		let sqlcmd = "SELECT * FROM buchhandlungen where Ort LIKE '%" + query.trim() + "%'";
+		db.getConnection(function(err, connection){
+			connection.query(sqlcmd, function(err, rows){
+				if(Object.entries(rows).length === 0){
+					answers.addArticle({
+						id: 'Not found',
+						title: 'Leider konnte ich keine Buchhandlung an diesem Ort finden:',
+						description: f.capitalizeFirstLetter(query),
+						message_text: ("Leider habe ich keine Buchhandlungen an diesem Ort finden können: " + f.capitalizeFirstLetter(query))
+					});
+					return bot.answerQuery(answers);
+				}else{
+					idCount = 0;
+					for(i in rows){
+						let name = rows[i].Name
+						let ort = rows[i].Ort
+						let url = rows[i].URL
+						var Nachricht = "" + name + "\n- Ort: " + f.capitalizeFirstLetter(ort) + "\n- Link: [" + urlX.parse(url).hostname + "](" + url + ")\n\n"
+							answers.addArticle({
+								id: idCount,
+								title: 'Buchhandlung: ' + rows[i].Name,
+								description: f.capitalizeFirstLetter(rows[i].Ort),
+								message_text: Nachricht,
+								parse_mode: 'markdown'
+							});
+							idCount++
+					}
+					return bot.answerQuery(answers);
+				}
+			});
+		});
+	}
 });

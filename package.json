@@ -8,12 +8,11 @@
     "request": "^2.88.0",
     "striptags": "^3.1.1",
     "systeminformation": "^4.18.3",
-    "telebot": "^1.2.6",
-    "twitter": "^1.7.1"
+    "telebot": "^1.2.6"
   },
   "devDependencies": {},
   "scripts": {
-	"start": "node Buchhandlung.js",
+    "start": "node Buchhandlung.js",
     "test": "node test.js"
   },
   "repository": {
