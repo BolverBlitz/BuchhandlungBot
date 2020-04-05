@@ -43,6 +43,16 @@ var LastConnectionLost = new Date();
 
 //config.isSuperAdmin = '447438490' //Thekla Override
 
+function cleanString(input) {
+    var output = "";
+    for (var i=0; i<input.length; i++) {
+        if (input.charCodeAt(i) <= 127) {
+            output += input.charAt(i);
+        }
+    }
+    return output;
+}
+
 bot.start(); //Telegram bot start
 
 
@@ -115,7 +125,7 @@ bot.on(/^\/s( .+)*$/i, (msg, props) => {
 	if(typeof(Para) === 'undefined'){
 			msg.reply.text("Leider hast du mir keinen Ort genannt.");
 	}else{
-		let sqlcmd = "SELECT * FROM buchhandlungen where Ort LIKE '%" + Para.trim() + "%'";
+		let sqlcmd = "SELECT * FROM buchhandlungen where Ort LIKE '%" + cleanString(Para.trim()) + "%'";
 		db.getConnection(function(err, connection){
 			connection.query(sqlcmd, function(err, rows){
 				let Nachricht = '';
@@ -197,7 +207,7 @@ bot.on('inlineQuery', msg => {
 		});
 		return bot.answerQuery(answers);
 	}else{
-		let sqlcmd = "SELECT * FROM buchhandlungen where Ort LIKE '%" + query.trim() + "%'";
+		let sqlcmd = "SELECT * FROM buchhandlungen where Ort LIKE '%" + cleanString(query.trim()) + "%'";
 		db.getConnection(function(err, connection){
 			connection.query(sqlcmd, function(err, rows){
 				if(Object.entries(rows).length === 0){
