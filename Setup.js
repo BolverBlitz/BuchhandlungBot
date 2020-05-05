@@ -13,7 +13,7 @@ var db = mysql.createPool({
 });
 //MySQL Syntax
 let sqlcmd = "CREATE DATABASE IF NOT EXISTS " + config.database + ";";
-let sqlcmdtable = "CREATE TABLE IF NOT EXISTS `Buchhandlungen` (`Name` varchar(255), `Ort` varchar(255), `URL` varchar(255), `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, PRIMARY KEY (`Name`));";
+let sqlcmdtable = "CREATE TABLE IF NOT EXISTS `buchhandlungen` (`Name` varchar(255), `Ort` varchar(255), `URL` varchar(255), `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, PRIMARY KEY (`Name`));";
 /*
 Permissions:
 Check ./data/permissionsList.json
