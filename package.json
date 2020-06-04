@@ -1,14 +1,16 @@
 {
   "name": "buchhandlungenbot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "Buchhandlung.js",
   "dependencies": {
-    "mysql": "^2.17.1",
+    "mysql": "^2.18.1",
+    "pm2": "^4.2.3",
     "request": "^2.88.0",
     "striptags": "^3.1.1",
-    "systeminformation": "^4.18.3",
-    "telebot": "^1.2.6"
+    "systeminformation": "^4.21.0",
+    "telebot": "^1.2.6",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {},
   "scripts": {

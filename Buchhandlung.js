@@ -53,6 +53,11 @@ function cleanString(input) {
     return output;
 }
 
+function s(str) {
+    return String(str).replace(/&amp;/g, '&')
+        .replace(/&#8211;/g, '-')
+}
+
 bot.start(); //Telegram bot start
 
 
@@ -138,7 +143,7 @@ bot.on(/^\/s( .+)*$/i, (msg, props) => {
 						let ort = rows[i].Ort
 						let url = rows[i].URL
 						//console.log(url)
-						Nachricht = Nachricht + "" + name + "\n- Ort: " + f.capitalizeFirstLetter(ort) + "\n- Link: [" + urlX.parse(url).hostname + "](" + url + ")\n\n"
+						Nachricht = Nachricht + "" + s(name) + "\n- Ort: " + f.capitalizeFirstLetter(ort) + "\n- Link: [" + urlX.parse(url).hostname + "](" + url + ")\n\n"
 					}
 				}
 				if(Nachricht.length >= 2000){
@@ -201,7 +206,7 @@ bot.on('inlineQuery', msg => {
     if(queryarr.length === 0){
 		answers.addArticle({
 			id: 'Not found',
-			title: 'Bitte gib den Ort an, an dem du eine Buchhandlung suchen möchtest!',
+			title: 'Gib den Ort an, an dem du suchen möchtest!',
 			description: query,
 			message_text: ("Bitte gebe einen Ort an")
 		});
@@ -224,10 +229,10 @@ bot.on('inlineQuery', msg => {
 						let name = rows[i].Name
 						let ort = rows[i].Ort
 						let url = rows[i].URL
-						var Nachricht = "" + name + "\n- Ort: " + f.capitalizeFirstLetter(ort) + "\n- Link: [" + urlX.parse(url).hostname + "](" + url + ")\n\n"
+						var Nachricht = "" + s(name) + "\n- Ort: " + f.capitalizeFirstLetter(ort) + "\n- Link: [" + urlX.parse(url).hostname + "](" + url + ")\n\n"
 							answers.addArticle({
 								id: idCount,
-								title: 'Buchhandlung: ' + rows[i].Name,
+								title: 'Buchhandlung: ' + s(rows[i].Name),
 								description: f.capitalizeFirstLetter(rows[i].Ort),
 								message_text: Nachricht,
 								parse_mode: 'markdown'
