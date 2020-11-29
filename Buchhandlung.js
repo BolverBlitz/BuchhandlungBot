@@ -109,8 +109,9 @@ bot.on(/^\/update$/i, (msg) => {
 						});
 					}
 				};
+				var NeueAnzahl = ShopsScraper.length-1
 				msg.reply.text("Es wurden " + [ShopsScraper.length-1] + " Buchhandlungen eingelesen und verarbeitet.\nIn " + ShopsScraper[ShopsScraper.length-1].OrtFehler + " fehlte ein Ort.")
-				fs.writeFile("Anzahl.txt", [ShopsScraper.length-1], (err) => {if (err) console.log(err);
+				fs.writeFile("Anzahl.txt", `${NeueAnzahl}`, (err) => {if (err) console.log(err);
 				});
 				console.log(AnzahlAlt)
 				if(AnzahlAlt >= [ShopsScraper.length-1]){
