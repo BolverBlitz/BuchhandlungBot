@@ -1,6 +1,6 @@
 //Include simple modules
 var fs = require("fs");
-const util = require('util');
+const util = require("util");
 
 //Für Zeit Befehle
 var Sekunde = 1000;

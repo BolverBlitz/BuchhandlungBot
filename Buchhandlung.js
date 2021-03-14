@@ -1,21 +1,21 @@
 //Include needed jsons
-let config = require('./config');
-let secret = require('./secret');
-let changelog = require('./changelog');
+let config = require("./config");
+let secret = require("./secret");
+let changelog = require("./changelog");
 
 //Include some Funktions
-const f = require('./src/Funktions');
-const OS = require('./src/Hardware');
-const Web = require('./src/ShopsScraper');
+const f = require("./src/Funktions");
+const OS = require("./src/Hardware");
+const Web = require("./src/ShopsScraper");
 
 //Include simple modules
 const fs = require("fs");
-const util = require('util');
-const mysql = require('mysql'); 
-const urlX = require('url');
+const util = require("util");
+const mysql = require("mysql"); 
+const urlX = require("url");
 
 //Include complex modules
-const Telebot = require('telebot');
+const Telebot = require("telebot");
 const bot = new Telebot({
 	token: secret.bottoken,
 	limit: 1000,
@@ -29,7 +29,7 @@ const db = mysql.createPool({
 	user: config.dbreaduser,
 	password: secret.dbreaduserpwd,
 	database: config.database,
-	charset : 'utf8mb4'
+	charset : "utf8mb4"
 });
 
 //Create and modify support variables
@@ -55,8 +55,8 @@ function cleanString(input) {
 }
 
 function s(str) {
-    return String(str).replace(/&amp;/g, '&')
-        .replace(/&#8211;/g, '-')
+    return String(str).replace(/&amp;/g, "&")
+        .replace(/&#8211;/g, "-");
 }
 
 bot.start(); //Telegram bot start
@@ -64,26 +64,26 @@ bot.start(); //Telegram bot start
 
 //Startup Message
 setTimeout(function(){
-console.log("Bot (" + botname + ") started at " + f.getDateTime(new Date()) + " with version " + version)
+console.log("Bot (" + botname + ") started at " + f.getDateTime(new Date()) + " with version " + version);
 OS.Hardware.then(function(Hardware) {
 	let Output = "Bot started on Version " + version;
 	Output = Output + '\n- CPU: ' + Hardware.cpubrand + ' ' + Hardware.cpucores + 'x' + Hardware.cpuspeed + ' Ghz';
 	Output = Output + '\n- Load: ' + f.Round2Dec(Hardware.load);
 	Output = Output + '%\n- Memory Total: ' + f.Round2Dec(Hardware.memorytotal/1073741824) + ' GB'
 	Output = Output + '\n- Memory Free: ' + f.Round2Dec(Hardware.memoryfree/1073741824) + ' GB'
-	bot.sendMessage(config.LogChat, Output)
+	bot.sendMessage(config.LogChat, Output);
 	//console.log(Hardware);
 });
 f.log("Pushed bot start to the admin");
 }, 2000);
 
 //Telegram Errors
-bot.on('reconnecting', (reconnecting) => {
+bot.on("reconnecting", (reconnecting) => {
 	f.log(util.inspect(reconnecting, true, 99));
 	f.log("Lost connection");
 	LastConnectionLost = new Date();
 });
-bot.on('reconnected', (reconnected) => {
+bot.on("reconnected", (reconnected) => {
 	f.log(util.inspect(reconnected, true, 99));
 	f.log("connection successfully");
 	bot.sendMessage(config.LogChat, "Bot is back online. Lost connection at " + f.getDateTime(LastConnectionLost))
@@ -92,7 +92,7 @@ bot.on('reconnected', (reconnected) => {
 //Userimput
 bot.on(/^\/update$/i, (msg) => {
 	bot.deleteMessage(msg.chat.id, msg.message_id);
-	var AnzahlAlt = fs.readFileSync('./Anzahl.txt');
+	var AnzahlAlt = fs.readFileSync("./Anzahl.txt");
 	AnzahlAlt = AnzahlAlt.toString();
 	if(msg.from.id == config.isSuperAdmin){
 		Web.ShopsScraper.then(function(ShopsScraper) {

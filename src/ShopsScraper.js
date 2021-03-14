@@ -1,12 +1,12 @@
-const request = require('request');
-const util = require('util');
-const striptags = require('striptags');
+const request = require("request");
+const util = require("util");
+const striptags = require("striptags");
 
-const URL = 'https://wintermohn.de/2020/01/11/unabhaengige-buchhandlungen-mit-online-shops/';
+const URL = "https://wintermohn.de/2020/01/11/unabhaengige-buchhandlungen-mit-online-shops/";
 var StartTabelle = 0;
 var StopTabelle = 0;
-var Out = '';
-var Tabelle = '';
+var Out = "";
+var Tabelle = "";
 var OutputObject = [];
 var OrtError = 0;
 
@@ -31,47 +31,45 @@ let ShopsScraper = new Promise(function(resolve, reject) {
 				Tabelle = Tabelle + HTML[i] + '"'
 			}
 			
-			let NewHTML = Tabelle.split('<tr>');
+			let NewHTML = Tabelle.split("<tr>");
 			//console.log(NewHTML)
 			
 			for(var i = 1; i < NewHTML.length;i++){
-				let temp = NewHTML[i].split('href');
+				let temp = NewHTML[i].split("href");
 				//console.log(i + ":" + temp)
-				let name = temp[0]
-				name = name.replace(/<td>/i,'',);
-				name = name.replace(/<br>/i,'',);
+				let name = temp[0];
+				name = name.replace(/<td>/i,"",);
+				name = name.replace(/<br>/i,"",);
 				name = name.trim();
 				//name = name.substring(0, name.indexOf('<'));
-				let temp2 = name.split(',');
+				let temp2 = name.split(",");
 				let ort = temp2[1]
 					//console.log(ort)
-				if(typeof(ort) === 'undefined'){
-					ort = 'unbekannt';
+				if(typeof(ort) === "undefined"){
+					ort = "unbekannt";
 					OrtError = OrtError + 1;
 				}else{
 				ort = ort.trim();
-				ort = ort.replace('</td><td>', '');
+				ort = ort.replace("</td><td>", "");
 				ort = ort.trim();
-				ort = ort.replace('<a', '');
+				ort = ort.replace("<a", "");
 				ort = ort.trim();
-				ort = ort.replace('<br>', '');
+				ort = ort.replace("<br>", "");
 				ort = ort.trim();
-				ort = ort.replace('<br>', '');
+				ort = ort.replace("<br>", "");
 				ort = ort.trim();
-				ort = ort.replace('rel="noreferrer noopener"', '');
+				ort = ort.replace('rel="noreferrer noopener"', "");
 				ort = ort.trim();
 				ort = ort.toLowerCase();
 				}
 				let nameReal = temp2[0]
 				let url = temp[1]
-				url = url.replace(/=/i,'',);
-				url = url.replace(/"/i,'',);
+				url = url.replace(/=/i,"",);
+				url = url.replace(/"/i,"",);
 				url = url.substring(0, url.indexOf('"'));
 				//url = url.replace(/"/i,'',);
-				url = url.replace('target="_blank"', '');
+				url = url.replace('target="_blank"', "");
 				url = url.trim();
-				
-				let ObjectTracker = i
 				
 				var Data = {
 					Name: nameReal,
