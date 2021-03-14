@@ -1,7 +1,7 @@
 //Include needed jsons
-var config = require('./config');
-var secret = require('./secret');
-var changelog = require('./changelog');
+let config = require('./config');
+let secret = require('./secret');
+let changelog = require('./changelog');
 
 //Include some Funktions
 const f = require('./src/Funktions');
@@ -9,7 +9,7 @@ const OS = require('./src/Hardware');
 const Web = require('./src/ShopsScraper');
 
 //Include simple modules
-var fs = require("fs");
+const fs = require("fs");
 const util = require('util');
 const mysql = require('mysql'); 
 const urlX = require('url');
@@ -23,7 +23,7 @@ const bot = new Telebot({
 });
 
 //Database
-var db = mysql.createPool({
+const db = mysql.createPool({
 	connectionLimit : 100,
 	host: config.dbreaduserhost,
 	user: config.dbreaduser,
@@ -33,13 +33,12 @@ var db = mysql.createPool({
 });
 
 //Create and modify support variables
-var Time_started = new Date().getTime();
-var botname = config.botname;
-var version = config.botversion;
-let versionfix = version.replace(/[.]/g,'_',);
+const Time_started = new Date().getTime();
+const botname = config.botname;
+const version = config.botversion;
+const versionfix = version.replace(/[.]/g,'_',);
 
-var changelog_latest = changelog[versionfix];
-var LastConnectionLost = new Date();
+let LastConnectionLost = new Date();
 
 //config.isSuperAdmin = '447438490' //Thekla Override
 
@@ -82,7 +81,7 @@ f.log("Pushed bot start to the admin");
 bot.on('reconnecting', (reconnecting) => {
 	f.log(util.inspect(reconnecting, true, 99));
 	f.log("Lost connection");
-	var LastConnectionLost = new Date();
+	LastConnectionLost = new Date();
 });
 bot.on('reconnected', (reconnected) => {
 	f.log(util.inspect(reconnected, true, 99));
